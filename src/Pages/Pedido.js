@@ -24,7 +24,6 @@ function Pedido() {
 	useEffect(()=>{
 		const aprovados = pedidos.filter((el) => el.status === "APROVADOS");
 		const andamento = pedidos.filter((el) => el.status !== "APROVADOS");
-		console.log(andamento);
 		setPedidosAprovados(aprovados)
 		setpedidosAndamento(andamento)
 	},[pedidos])
@@ -42,11 +41,11 @@ function Pedido() {
 				}
 			})
 			if(response.status !==204){
-				history.push('/')
+				history.push('/desafio-frontend-sorocaps/')
 			}
 
 		} catch (error) {
-			history.push('/')
+			history.push('/desafio-frontend-sorocaps/')
 		}
 	
 	}
@@ -55,7 +54,6 @@ function Pedido() {
 
 		try {
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
-			// console.log(values);
 			const response = await axios.get(`${URL}/pedidos`,
 				
 				{

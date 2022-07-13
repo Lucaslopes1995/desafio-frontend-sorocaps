@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header'
 
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Form, Input, InputNumber } from 'antd';
 import React, { useEffect } from 'react';
 import { createProduct, messageModal } from '../Redux/Actions';
 import ModalMessages from '../components/ModalMessages';
@@ -19,7 +19,7 @@ const layout = {
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
-  required: '${label} é Obrigatório required!',
+  required: '${label} é Obrigatório',
   types: {
     number: '${label} precisa estar em formato numérico!',
   },
@@ -36,7 +36,7 @@ const Produto = ({dispatch}) => {
 	const validateToken = async() =>{
 
 		try {
-			
+			dispatch(messageModal('Carregando'));
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
 
 			const response = await axios.get(`${URL}/validtoken`,{
@@ -45,11 +45,12 @@ const Produto = ({dispatch}) => {
 				}
 			})
 			if(response.status !==204){
-				history.push('/')
+				history.push('/desafio-frontend-sorocaps')
 			}
 
 		} catch (error) {
-			history.push('/')
+			dispatch(messageModal('Falha ao localizar token'));
+			history.push('/desafio-frontend-sorocaps')
 		}
 	
 	}
@@ -59,11 +60,11 @@ const Produto = ({dispatch}) => {
 	},[])
 
   const onFinish = async (values) => {
-	console.log({...values.produto});
     try {
 
-		const token = JSON.parse(localStorage.getItem('tokenUser'))
+		const token = JSON.parse(localStorage.getItem('tokenUser'));
 
+		dispatch(messageModal('Carregando'));
 		const response = await axios.post(`${URL}/produtos`,
 		{...values.produto},
 		{
@@ -71,7 +72,6 @@ const Produto = ({dispatch}) => {
 			  'authorization': token
 			}
 		});
-		console.log(response);
 		if(response.status ===203){
 			dispatch(messageModal("Produto Cadastrado com Sucesso"))
 			dispatch(createProduct(values))
@@ -79,7 +79,6 @@ const Produto = ({dispatch}) => {
 			dispatch(messageModal("Falha ao Criar Produto"))
 		}
 	} catch (error) {
-		console.log(error);
 		dispatch(messageModal("Falha ao Criar Produto"))
 	}
   };
@@ -108,6 +107,13 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
@@ -122,6 +128,13 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
@@ -133,6 +146,13 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
@@ -144,6 +164,13 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
@@ -157,6 +184,13 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<InputNumber />
 		</Form.Item>
@@ -170,11 +204,18 @@ const Produto = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<InputNumber />
 		</Form.Item>
 
-		<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+		<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
 			<ModalMessages htmlType="submit" textoBotao="Cadastrar"/>
 		</Form.Item>
 		</Form>

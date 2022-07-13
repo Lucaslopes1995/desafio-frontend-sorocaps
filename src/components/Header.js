@@ -1,5 +1,5 @@
 import { Menu } from 'antd';
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+// import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
 const App = () => {
@@ -7,9 +7,6 @@ const App = () => {
 
 	const changePage = (e) => {
 		switch(e.key){
-			case ("Registro"):
-				history.push('/desafio-frontend-sorocaps/');
-				break;
 			case ("Cadastro Produto"):
 				history.push('/desafio-frontend-sorocaps/produto');
 				break;
@@ -27,9 +24,6 @@ const App = () => {
 
   return(
 	<Menu mode="horizontal" defaultSelectedKeys={['Cadastro Cliente']} onClick={(e)=>changePage(e)}>
-    <Menu.Item key="Registro" >
-      Registro
-    </Menu.Item>
 	<Menu.Item key="Cadastro Cliente">
       Cadastro Cliente
     </Menu.Item>

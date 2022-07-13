@@ -1,13 +1,14 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Col, Form, Input, Row } from 'antd';
+import { Col, Form, Input, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ModalMessages from '../components/ModalMessages';
 import { LoggedUser, messageModal } from '../Redux/Actions';
 import Header from '../components/Header'
 import URL from '../baseURLs/baseURLS';
+// import Register from './Register'
 
 const Login = ({dispatch}) => {
   const [form] = Form.useForm();
@@ -18,17 +19,22 @@ const Login = ({dispatch}) => {
     forceUpdate({});
   }, []);
 
-  const history = useHistory();
+//   const history = useHistory();
 
   const onFinish = async (values) => {
     try {
-		const response = await axios.post(`${URL}/user/${values.name}`);
+
+		dispatch(messageModal('Carregando'));
+		const response = await axios.post(`${URL}/user/`,
+		{...values},
+		);		
 
 		const token = response?.data?.token;
 
 		if(token){
 			localStorage.setItem('tokenUser', JSON.stringify(token));
-			dispatch(messageModal('Acesso Correto'))
+			dispatch(messageModal(`Bem vindo ${values.name}`))
+			// history.push("/desafio-frontend-sorocaps/cliente")
 			dispatch(LoggedUser({name:values.name}))
 			setShwowHeader(true);
 		}else{
@@ -41,7 +47,6 @@ const Login = ({dispatch}) => {
 
 		dispatch(messageModal(message))
 
-		console.log(error.response.data.message);
 	}
   };
 
@@ -107,6 +112,15 @@ const Login = ({dispatch}) => {
 			<Col span={4}>
 				<Form.Item shouldUpdate>
 					<ModalMessages htmlType="submit" textoBotao="Acessar"/>
+				</Form.Item>
+			</Col>
+		</Row>
+
+		<Row justify='center'>
+			<Col span={4}>
+				<Form.Item shouldUpdate>
+					<p>Não tem Cadastro?</p>
+					<Link to='/desafio-frontend-sorocaps/registro'>Registre-se</Link>
 				</Form.Item>
 			</Col>
 		</Row>

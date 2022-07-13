@@ -12,10 +12,10 @@ function App() {
 	const renderRoute = () => {
 		return (
 			<Switch>
-			<Route exact path="/desafio-frontend-sorocaps/" component={Register} />
+			<Route exact path="/desafio-frontend-sorocaps/" component={Login} />
+			<Route exact path="/desafio-frontend-sorocaps/registro" component={Register} />
 			<Route exact path="/desafio-frontend-sorocaps/produto" component={Produto} />
 			<Route exact path="/desafio-frontend-sorocaps/cliente" component={Cliente} />
-			<Route exact path="/desafio-frontend-sorocaps/login" component={Login} />
 			<Route exact path="/desafio-frontend-sorocaps/pedido" component={Pedido} />
 
 

@@ -7,19 +7,16 @@ import { messageModal } from '../Redux/Actions';
 import ModalMessages from './ModalMessages';
 
 const changeStatus = async (data) =>{
-	console.log(data.id);
 	try {
+		data.dispatch(messageModal('Carregando'))
 		const response = await axios.put(`${URL}/pedidos/${data.id}`)
-		console.log(response);
 		if(response.status ===203){
-			console.log(data);
 			data.getPedidos();
 
 			data.dispatch(messageModal('Produto Atualizado com sucesso'))
 			// alert("Produto Atualizado com sucesso")
 		}else{
 			data.dispatch("Produto Atualizado com sucesso")
-			console.log("Falha ao Atualizar o produto");
 		}
 
 	
@@ -38,8 +35,8 @@ const columns = [
   },
   {
     title: 'Cliente',
-    dataIndex: ["clientes",'cnpj'],
-    key: 'cliente_id',
+    dataIndex: ["clientes",'nome'],
+    key: 'nome',
   },
   {
     title: 'Quantidade',
@@ -57,8 +54,6 @@ const columns = [
     key: 'status',
     render: (_, record) => (
 		<Space size="middle">
-		  {/* {console.log(record)} */}
-
 			{ record.status !=="Aprovadas" ?
 
 		  		<ModalMessages textoBotao="Aprovar" onClick={ () => changeStatus(record)}/>
@@ -79,8 +74,6 @@ const Table1 = ({pedidos,getPedidos,status,dispatch}) => {
 		return el
 	});
 
-
-	// console.log(pedidosTeste);
 
 	return (
 		<>

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { LoggedUser, messageModal } from '../Redux/Actions';
 import ModalMessages from '../components/ModalMessages';
 import Header from '../components/Header'
@@ -10,36 +10,33 @@ import URL from '../baseURLs/baseURLS';
 
 
 const Login = ({dispatch}) => {
-	const history = useHistory();
+	// const history = useHistory();
 	const [shwowHeader, setShwowHeader] = useState(false);
 
 
   	const onFinish = async (values) => {
 		try {
-			console.log(`${URL}/users`);
+			dispatch(messageModal('Carregando'));
 			const response = await axios.post(`${URL}/users`,values);
 			
 			const token = response?.data?.token
 			if(token){
 				localStorage.setItem('tokenUser', JSON.stringify(token));
-				dispatch(messageModal('Usuário Criado com Sucesso'))
-				dispatch(LoggedUser({name:values.name}))
+				dispatch(messageModal('Usuário Criado com Sucesso'));
+				dispatch(LoggedUser({name:values.name}));
 				setShwowHeader(true)
 			}else{
-				dispatch(messageModal('Falha ao Criar Usuário'))
-				console.log("Falha ao Criar Usuário");
+				dispatch(messageModal('Falha ao Criar Usuário'));
 			}
 		} catch (error) {
-			const message = error?.response?.data.message || 'Falha ao Criar Usuário'
-			dispatch(messageModal(message))
-			console.log(error.response.data.message);
+			const message = error?.response?.data.message || 'Falha ao Criar Usuário';
+			dispatch(messageModal(message));
 		}
 		
   };
 
-  const onFinishFailed = (errorInfo) => {
-	dispatch(messageModal('Falha ao Criar Usuário'))
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = () => {
+	dispatch(messageModal('Falha ao Criar Usuário'));
   };
 
   return (
@@ -51,11 +48,13 @@ const Login = ({dispatch}) => {
 		<div className='div-form'>
     <Form
       name="basic"
+	  align='center'
       labelCol={{
-        span: 8,
+        span: 4,
+		offset: 6,
       }}
       wrapperCol={{
-        span: 8,
+        span: 4,
       }}
       initialValues={{
         remember: true,
@@ -93,13 +92,10 @@ const Login = ({dispatch}) => {
 
       <Form.Item
         wrapperCol={{
-          offset: 8,
-          span: 8,
+          offset: 10,
+          span:6,
         }}
       >
-        {/* <Button type="primary" htmlType="submit">
-          Login
-        </Button> */}
 		<ModalMessages htmlType="submit" textoBotao="Realizar Cadastro"/>
       </Form.Item>
     </Form>

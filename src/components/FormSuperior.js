@@ -1,8 +1,7 @@
-import { Button, Form, Input, Select, Space, Tooltip, Typography } from 'antd';
+import { Form, Input, Select } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import React, {useEffect, useState} from 'react';
-import { useHistory } from 'react-router-dom';
 import { createPedido, messageModal } from '../Redux/Actions';
 import ModalMessages from './ModalMessages'
 import URL from '../baseURLs/baseURLS';
@@ -10,11 +9,8 @@ const { Option } = Select;
 
 const App = ({dispatch, getPedidos}) => {
 
-	const history = useHistory();
-
 	const [clientes, setClientes] = useState([]);
 	const [products, setProducts] = useState([]);
-	const [showModal, setShowModal] = useState(false);
 
 
 
@@ -26,16 +22,12 @@ const App = ({dispatch, getPedidos}) => {
 	const getClientes = async () => {
 		const response = await axios.get(`${URL}/clientes`)
 		const rawClientes = response?.data;
-		// const a =rawClientes.map((el) => el.cnpj)
-		// console.log(rawClientes);
 		setClientes(rawClientes)
 	};
 
 	const getProducts = async () => {
 		const response = await axios.get(`${URL}/produtos`)
 		const rawClientes = response?.data;
-		// const a =rawClientes.map((el) => el.codigoDoProduto)
-		// console.log(a);
 		setProducts(rawClientes)
 	};
 
@@ -45,7 +37,7 @@ const App = ({dispatch, getPedidos}) => {
 	const onFinish = async (values) => {
 		try {
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
-			// console.log(values);
+			dispatch(messageModal('Carregando'))
 			const response = await axios.post(`${URL}/pedidos`,
 				{...values,status:"EM PROCESSO"},
 				{
@@ -53,13 +45,11 @@ const App = ({dispatch, getPedidos}) => {
 					'authorization': token
 					}
 				});
-			// console.log(response);
-			// const token = response?.data?.token
 			if(response.status === 203){
 				await getPedidos();
 				dispatch(messageModal('Pedido Criado'))
 				dispatch(createPedido({...values,status:"EM PROCESSO"}))
-				setShowModal(true)
+				// setShowModal(true)
 				// alert("Produto Criado com Sucesso")
 			}else{
 				dispatch(messageModal('Falha ao Criar o Pedido'))
@@ -67,7 +57,6 @@ const App = ({dispatch, getPedidos}) => {
 		} catch (error) {
 			const message = error?.response?.data?.message || "Falha ao Criar Pedido";
 			dispatch(messageModal(message))
-			// console.log(error.response.data.message);
 		}
 	  };
 
@@ -121,7 +110,7 @@ const App = ({dispatch, getPedidos}) => {
 				},
 				]}
 			>
-				<Select placeholder="Select province">
+				<Select placeholder="Selecione um produto">
 					{products.length>0 && products.map((el)=>(
 						<Option key={el.id} value={el.id}>{el.nomeProduto}</Option>
 					))}
@@ -168,7 +157,7 @@ const App = ({dispatch, getPedidos}) => {
 			</Form.Item>
 			
 		</Form.Item>
-		<Form.Item label=" " colon={false}>
+		<Form.Item label=" " colon={false} align="center">
 			<ModalMessages htmlType="submit" textoBotao="Cadastrar Pedido" />
 		</Form.Item>
 		</Form>

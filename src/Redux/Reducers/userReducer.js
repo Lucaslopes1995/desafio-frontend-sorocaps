@@ -8,7 +8,6 @@ const INITIAL_STATE = {
   function user(state = INITIAL_STATE, action) {
 	switch (action.type) {
 	  case USERLOGGED:
-		console.log(action.payload);
 		return { 
 			...state,
 			name:action.payload.name

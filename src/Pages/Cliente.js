@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header'
 
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Form, Input, InputNumber } from 'antd';
 import React, { useEffect } from 'react';
 import { createCliente, messageModal } from '../Redux/Actions';
 import ModalMessages from '../components/ModalMessages';
@@ -19,7 +19,7 @@ const layout = {
 /* eslint-disable no-template-curly-in-string */
 
 const validateMessages = {
-  required: '${label} é Obrigatório required!',
+  required: '${label} é Obrigatório!',
   types: {
     number: '${label} precisa estar em formato numérico!',
   },
@@ -45,11 +45,11 @@ const Cliente = ({dispatch}) => {
 				}
 			})
 			if(response.status !==204){
-				history.push('/')
+				history.push('/desafio-frontend-sorocaps/')
 			}
 
 		} catch (error) {
-			history.push('/')
+			history.push('/desafio-frontend-sorocaps/')
 		}
 	
 	}
@@ -59,11 +59,11 @@ const Cliente = ({dispatch}) => {
 	},[])
 
   const onFinish = async (values) => {
-	console.log({...values.cliente});
     try {
 
-		const token = JSON.parse(localStorage.getItem('tokenUser'))
+		const token = JSON.parse(localStorage.getItem('tokenUser'));
 
+		dispatch(messageModal('Carregando'));
 		const response = await axios.post(`${URL}/clientes`,
 			{...values.cliente},
 			{
@@ -71,13 +71,11 @@ const Cliente = ({dispatch}) => {
 				'authorization': token
 				}
 			});
-		console.log(response);
 		if(response.status === 203){
 			dispatch(messageModal("Cliente Cadastrado com Sucesso"))
 			return dispatch(createCliente(values))
 		}else{
 			dispatch(messageModal("Falha ao Criar Cliente2"))
-			// console.log("Falha ao Criar Cliente");
 		}
 	} catch (error) {
 		const message = error?.response?.data?.message || "Falha ao Criar Cliente";
@@ -102,7 +100,7 @@ const Cliente = ({dispatch}) => {
 		onFinishFailed={onFinishFailed} validateMessages={validateMessages}
 
 		>
-
+		
 		<Form.Item
 			name={['cliente', 'nome']}
 			label="Nome do Cliente"
@@ -111,6 +109,15 @@ const Cliente = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
+
+
 		>
 			<Input />
 		</Form.Item>
@@ -127,6 +134,13 @@ const Cliente = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
@@ -135,12 +149,18 @@ const Cliente = ({dispatch}) => {
 			label="CNPJ"
 			rules={[
 			{
-				type: 'number',
-				min: 0
+				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
-			<InputNumber />
+			<Input />
 		</Form.Item>
 		<Form.Item
 			name={['cliente', 'endereco']}
@@ -150,15 +170,19 @@ const Cliente = ({dispatch}) => {
 				required: true,
 			},
 			]}
+			labelCol={{
+				span: 4,
+				offset: 6,
+			  }}
+			  wrapperCol={{
+				span: 4,
+			  }}
 		>
 			<Input />
 		</Form.Item>
 		
 
-		<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-			{/* <Button type="primary" htmlType="submit">
-			Cadastrar
-			</Button> */}
+		<Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 10 }}>
 			<ModalMessages htmlType="submit" textoBotao="Cadastrar"/>
 		</Form.Item>
 		</Form>

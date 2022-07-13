@@ -6,7 +6,8 @@ import {ConfigProvider} from 'antd';
 import ptBR from 'antd/lib/locale/pt_BR';
 import { Provider } from 'react-redux';
 
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 
 import reportWebVitals from './reportWebVitals';
 import store from './Redux/Stores';
