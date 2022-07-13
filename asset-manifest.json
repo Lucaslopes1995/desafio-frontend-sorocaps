@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/desafio-frontend-sorocaps/static/css/main.f47e073e.css",
-    "main.js": "/desafio-frontend-sorocaps/static/js/main.b71ccf5b.js",
+    "main.js": "/desafio-frontend-sorocaps/static/js/main.a2f42d1a.js",
     "static/js/787.71df535f.chunk.js": "/desafio-frontend-sorocaps/static/js/787.71df535f.chunk.js",
     "index.html": "/desafio-frontend-sorocaps/index.html",
     "main.f47e073e.css.map": "/desafio-frontend-sorocaps/static/css/main.f47e073e.css.map",
-    "main.b71ccf5b.js.map": "/desafio-frontend-sorocaps/static/js/main.b71ccf5b.js.map",
+    "main.a2f42d1a.js.map": "/desafio-frontend-sorocaps/static/js/main.a2f42d1a.js.map",
     "787.71df535f.chunk.js.map": "/desafio-frontend-sorocaps/static/js/787.71df535f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f47e073e.css",
-    "static/js/main.b71ccf5b.js"
+    "static/js/main.a2f42d1a.js"
   ]
 }
