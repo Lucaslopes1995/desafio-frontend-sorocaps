@@ -1,4 +1,4 @@
-import { Form, Input, Select } from 'antd';
+import { Col,Form, Input, Row, Select } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import React, {useEffect, useState} from 'react';
@@ -9,8 +9,12 @@ const { Option } = Select;
 
 const App = ({dispatch, getPedidos}) => {
 
+	const [form] = Form.useForm();
+
 	const [clientes, setClientes] = useState([]);
 	const [products, setProducts] = useState([]);
+
+	// const [form] = Form.useForm();
 
 
 
@@ -37,18 +41,20 @@ const App = ({dispatch, getPedidos}) => {
 	const onFinish = async (values) => {
 		try {
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
-			dispatch(messageModal('Carregando'))
+			dispatch(messageModal('Carregando'));
 			const response = await axios.post(`${URL}/pedidos`,
 				{...values,status:"EM PROCESSO"},
 				{
 					headers: {
-					'authorization': token
+					'authorization': token				
 					}
 				});
-			if(response.status === 203){
+			if(response.status === 201){
 				await getPedidos();
 				dispatch(messageModal('Pedido Criado'))
 				dispatch(createPedido({...values,status:"EM PROCESSO"}))
+				form.resetFields()
+				// form.setFieldsValue({quantidade:1})
 				// setShowModal(true)
 				// alert("Produto Criado com Sucesso")
 			}else{
@@ -67,7 +73,10 @@ const App = ({dispatch, getPedidos}) => {
   return (
 	<>
 		<Form
-		// align="center"
+		form={form}
+		autoComplete='off'
+		align="center"
+		// form={form}
 		style={{
 			marginTop: 30,
 			}}
@@ -81,8 +90,8 @@ const App = ({dispatch, getPedidos}) => {
 			span: 10,
 		}}
 		>
-		<Form.Item align="center">
-			<Input.Group compact>
+		<Form.Item align="center" >
+			<Input.Group compact >
 			<Form.Item
 				name={'cliente_id'}
 				noStyle
@@ -94,8 +103,8 @@ const App = ({dispatch, getPedidos}) => {
 				]}
 			>
 				<Select placeholder="Selecione um Cliente">
-					{clientes.length>0 && clientes.map((el)=>(
-						<Option key={el.id} value={el.id}>{el.nome}</Option>
+					{clientes.length>0 && clientes.map((el,i)=>(
+						<Option key={el.id+i} value={el.id}>{el.nome}</Option>
 					))}
 
 				</Select>
@@ -109,10 +118,11 @@ const App = ({dispatch, getPedidos}) => {
 					message: 'Produto é obrigatório',
 				},
 				]}
+				
 			>
 				<Select placeholder="Selecione um produto">
-					{products.length>0 && products.map((el)=>(
-						<Option key={el.id} value={el.id}>{el.nomeProduto}</Option>
+					{products.length>0 && products.map((el,i)=>(
+						<Option key={el.id+i} value={el.id}>{el.nomeProduto}</Option>
 					))}
 
 				</Select>
@@ -124,8 +134,21 @@ const App = ({dispatch, getPedidos}) => {
 			style={{
 			marginBottom: 0,
 			}}
+			labelCol={{
+				span: 24,
+
+			  }}
+			//   wrapperCol={{
+			// 	span: 12,
+			//   }}
 		>
 			<Form.Item
+
+			wrapperCol={{
+				span: 12,
+				offset: 6
+			}}
+
 			label="Quantidade"
 			name="quantidade"
 			rules={[
@@ -141,6 +164,16 @@ const App = ({dispatch, getPedidos}) => {
 			<Input placeholder="Quantidade" />
 			</Form.Item>
 			<Form.Item
+
+			// labelCol={{
+			// 	span: 24,
+
+			// }}
+			wrapperCol={{
+				span: 12,
+				offset: 6
+			}}
+			
 			label="Valor da Venda"
 			name="valorDaVenda"
 			rules={[
@@ -155,11 +188,24 @@ const App = ({dispatch, getPedidos}) => {
 			>
 			<Input placeholder="Valor da Venda" />
 			</Form.Item>
+
 			
+
+
+			
+			{/* wrapperCol={{ offset: 0, span: 1, }} */}
 		</Form.Item>
-		<Form.Item label=" " colon={false} align="center">
-			<ModalMessages htmlType="submit" textoBotao="Cadastrar Pedido" />
-		</Form.Item>
+
+			<Row justify='center'>
+				<Col justify='center' >
+
+						<ModalMessages htmlType="submit" textoBotao="Cadastrar Pedido" justify='center'  />
+
+				</Col>
+			</Row>
+
+
+		
 		</Form>
 	</>
   );

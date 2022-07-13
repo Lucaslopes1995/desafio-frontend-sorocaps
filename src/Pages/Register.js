@@ -2,7 +2,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import { Button, Form, Input } from 'antd';
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { LoggedUser, messageModal } from '../Redux/Actions';
 import ModalMessages from '../components/ModalMessages';
 import Header from '../components/Header'
@@ -10,7 +10,7 @@ import URL from '../baseURLs/baseURLS';
 
 
 const Login = ({dispatch}) => {
-	// const history = useHistory();
+	const history = useHistory();
 	const [shwowHeader, setShwowHeader] = useState(false);
 
 
@@ -25,6 +25,7 @@ const Login = ({dispatch}) => {
 				dispatch(messageModal('Usuário Criado com Sucesso'));
 				dispatch(LoggedUser({name:values.name}));
 				setShwowHeader(true)
+				history.push("/desafio-frontend-sorocaps/cliente")
 			}else{
 				dispatch(messageModal('Falha ao Criar Usuário'));
 			}
@@ -47,6 +48,7 @@ const Login = ({dispatch}) => {
 	
 		<div className='div-form'>
     <Form
+	  autoComplete='off'
       name="basic"
 	  align='center'
       labelCol={{
@@ -61,7 +63,6 @@ const Login = ({dispatch}) => {
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      autoComplete="off"
     >
       <Form.Item
         label="Nome"
@@ -70,6 +71,19 @@ const Login = ({dispatch}) => {
           {
             required: true,
             message: 'Adicione um Nome',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+	  <Form.Item
+        label="Usuário"
+        name="usuario"
+        rules={[
+          {
+            required: true,
+            message: 'Adicione um Usuário',
           },
         ]}
       >

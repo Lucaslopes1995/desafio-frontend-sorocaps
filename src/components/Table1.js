@@ -8,22 +8,33 @@ import ModalMessages from './ModalMessages';
 
 const changeStatus = async (data) =>{
 	try {
+		
 		data.dispatch(messageModal('Carregando'))
-		const response = await axios.put(`${URL}/pedidos/${data.id}`)
-		if(response.status ===203){
+		const token = JSON.parse(localStorage.getItem('tokenUser'));
+		const response = await axios.put(`${URL}/pedidos/${data.id}`,{},{
+			headers: {
+			'authorization': token,
+			'tabela': "pedido",
+			'acao': "update"
+			}
+		})
+
+		if(response.status ===200){
 			data.getPedidos();
 
 			data.dispatch(messageModal('Produto Atualizado com sucesso'))
 			// alert("Produto Atualizado com sucesso")
 		}else{
-			data.dispatch("Produto Atualizado com sucesso")
+			console.log("w");
+			data.dispatch(messageModal("Falha ao atualizar Pedido"))
 		}
 
 	
 		// setPedidos(rawClientes)
 		
 	} catch (error) {
-		data.dispatch("Falha ao Atualizar o produto")
+		console.log(data);
+		data.dispatch(messageModal("Falha ao atualizar Pedido"))
 	}
 }
 
@@ -45,8 +56,10 @@ const columns = [
   },
   {
     title: 'Valor da Venda',
-    dataIndex: 'valorDaVenda',
     key: 'valorDaVenda',
+	render: (_, record) => (
+		<span key={record.id}>{"R$ "+ (record.valorDaVenda)}</span>
+	)
   },
   
   {
@@ -56,8 +69,9 @@ const columns = [
 		<Space size="middle">
 			{ record.status !=="Aprovadas" ?
 
-		  		<ModalMessages textoBotao="Aprovar" onClick={ () => changeStatus(record)}/>
-				: <span>Aprovada</span>
+		  		<ModalMessages key={record.id} textoBotao="Aprovar" changeStatus = {()=>changeStatus(record)} />
+				//   <button textoBotao="Aprovar" onClick={ () => changeStatus(record)}>Aprovar</button>
+				: <span key={record.id}>Aprovada</span>
         	}
 		{/* <a onClick={ () => changeStatus(record) }>Aprovar</a> */}
       </Space>

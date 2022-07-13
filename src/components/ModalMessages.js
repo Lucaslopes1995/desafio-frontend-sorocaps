@@ -3,12 +3,13 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import { messageModal } from '../Redux/Actions';
 
-const App = ({infoModal, textoBotao, onClick, dispatch}) => {
+const App = ({infoModal, textoBotao, onClick, dispatch, changeStatus}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = async () => {
 	if( textoBotao === "Aprovar"){
-		dispatch(messageModal('Pedido Atualizado com sucesso'))
+		changeStatus()
+		// dispatch(messageModal('Pedido Atualizado com sucesso'))
 	}
 	  	
 	setIsModalVisible(true);
@@ -19,7 +20,7 @@ const App = ({infoModal, textoBotao, onClick, dispatch}) => {
 	if(onClick){
 		await onClick()
 	}
-	dispatch(messageModal(''))
+	// dispatch(messageModal(''))
   };
 
   const handleCancel = async () => {
@@ -27,7 +28,7 @@ const App = ({infoModal, textoBotao, onClick, dispatch}) => {
 	if(onClick){
 		await onClick()
 	}
-	dispatch(messageModal(''))
+	// dispatch(messageModal(''))
   };
 
   return (

@@ -3,7 +3,7 @@ import { Col, Form, Input, Row } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import ModalMessages from '../components/ModalMessages';
 import { LoggedUser, messageModal } from '../Redux/Actions';
 import Header from '../components/Header'
@@ -19,14 +19,14 @@ const Login = ({dispatch}) => {
     forceUpdate({});
   }, []);
 
-//   const history = useHistory();
+  const history = useHistory();
 
   const onFinish = async (values) => {
     try {
 
 		dispatch(messageModal('Carregando'));
 		const response = await axios.post(`${URL}/user/`,
-		{...values},
+		{...values}
 		);		
 
 		const token = response?.data?.token;
@@ -34,9 +34,9 @@ const Login = ({dispatch}) => {
 		if(token){
 			localStorage.setItem('tokenUser', JSON.stringify(token));
 			dispatch(messageModal(`Bem vindo ${values.name}`))
-			// history.push("/desafio-frontend-sorocaps/cliente")
 			dispatch(LoggedUser({name:values.name}))
 			setShwowHeader(true);
+			history.push("/desafio-frontend-sorocaps/cliente")
 		}else{
 			dispatch(messageModal('Dados Incorretos'))
 		}
@@ -69,15 +69,15 @@ const Login = ({dispatch}) => {
 
 				<Col span={4}>
 				<Form.Item
-				name="name"
+				name="usuario"
 				rules={[
 				{
 				required: true,
-				message: 'Adicione o Nome!',
+				message: 'Adicione o Usuário!',
 				},
 				]}
 				>
-					<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Nome" />
+					<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Usuário" />
 				</Form.Item>
 				</Col>
 

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header'
 
-import { Form, Input, InputNumber } from 'antd';
+import { Form, Input } from 'antd';
 import React, { useEffect } from 'react';
 import { createCliente, messageModal } from '../Redux/Actions';
 import ModalMessages from '../components/ModalMessages';
 import URL from '../baseURLs/baseURLS';
+
 const layout = {
   labelCol: {
     span: 8,
@@ -30,6 +31,8 @@ const validateMessages = {
 /* eslint-enable no-template-curly-in-string */
 
 const Cliente = ({dispatch}) => {
+
+	const [form] = Form.useForm();
 
 	const history = useHistory();
 
@@ -71,8 +74,11 @@ const Cliente = ({dispatch}) => {
 				'authorization': token
 				}
 			});
-		if(response.status === 203){
+		if(response.status === 201){
+			
 			dispatch(messageModal("Cliente Cadastrado com Sucesso"))
+			// console.log(form);
+			form.resetFields()
 			return dispatch(createCliente(values))
 		}else{
 			dispatch(messageModal("Falha ao Criar Cliente2"))
@@ -98,6 +104,8 @@ const Cliente = ({dispatch}) => {
 
 		<Form {...layout} name="nest-messages" onFinish={onFinish}  
 		onFinishFailed={onFinishFailed} validateMessages={validateMessages}
+		autoComplete='off'
+		form={form}
 
 		>
 		

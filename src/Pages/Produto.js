@@ -31,7 +31,11 @@ const validateMessages = {
 
 const Produto = ({dispatch}) => {
 
+	const [form] = Form.useForm();
+
 	const history = useHistory();
+
+	// const [form] = Form.useForm();
 
 	const validateToken = async() =>{
 
@@ -41,7 +45,9 @@ const Produto = ({dispatch}) => {
 
 			const response = await axios.get(`${URL}/validtoken`,{
 				headers: {
-				'authorization': token
+				'authorization': token,
+				'tabela': "produtos",
+					'acao': "add"	
 				}
 			})
 			if(response.status !==204){
@@ -72,9 +78,15 @@ const Produto = ({dispatch}) => {
 			  'authorization': token
 			}
 		});
-		if(response.status ===203){
+		if(response.status ===201){
+			// console.log(values.produto.nomeProduto);
+			// console.log(form);
+			// form.setFieldsValue({
+			// 	produto: {nomeProduto:"awd"}
+			//   });
 			dispatch(messageModal("Produto Cadastrado com Sucesso"))
 			dispatch(createProduct(values))
+			form.resetFields()
 		}else{
 			dispatch(messageModal("Falha ao Criar Produto"))
 		}
@@ -97,6 +109,8 @@ const Produto = ({dispatch}) => {
 
 		<Form {...layout} name="nest-messages" onFinish={onFinish} 
 		onFinishFailed={onFinishFailed} validateMessages={validateMessages}
+		autoComplete='off'
+		form={form}
 		>
 
 		<Form.Item
