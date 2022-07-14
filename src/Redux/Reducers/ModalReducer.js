@@ -1,6 +1,5 @@
 import { MESSAGEMODAL } from "../Actions";
 
-
 const INITIAL_STATE = {message:''}
   
 function modal(state = INITIAL_STATE, action) {

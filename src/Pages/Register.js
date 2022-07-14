@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { connect } from 'react-redux';
-import { Button, Form, Input } from 'antd';
+import { Form, Input } from 'antd';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoggedUser, messageModal } from '../Redux/Actions';
@@ -44,8 +44,6 @@ const Login = ({dispatch}) => {
 	<div>
 		{shwowHeader && <Header/>}
 
-
-	
 		<div className='div-form'>
     <Form
 	  autoComplete='off'

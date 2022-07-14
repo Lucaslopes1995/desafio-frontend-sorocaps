@@ -1,6 +1,5 @@
 import { USERLOGGED } from "../Actions";
 
-
 const INITIAL_STATE = {
 	name:""
   };

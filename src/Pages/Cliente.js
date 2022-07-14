@@ -77,7 +77,6 @@ const Cliente = ({dispatch}) => {
 		if(response.status === 201){
 			
 			dispatch(messageModal("Cliente Cadastrado com Sucesso"))
-			// console.log(form);
 			form.resetFields()
 			return dispatch(createCliente(values))
 		}else{
@@ -97,8 +96,6 @@ const Cliente = ({dispatch}) => {
   return (
 	<div>
 		<Header/>
-
-
 	
 	<div className='div-form'>
 
@@ -129,10 +126,6 @@ const Cliente = ({dispatch}) => {
 		>
 			<Input />
 		</Form.Item>
-
-
-
-
 
 		<Form.Item
 			name={['cliente', 'razaoSocial']}

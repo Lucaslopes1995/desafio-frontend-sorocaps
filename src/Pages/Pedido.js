@@ -55,7 +55,6 @@ function Pedido() {
 		try {
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
 			const response = await axios.get(`${URL}/pedidos`,
-				
 				{
 					headers: {
 					'authorization': token
@@ -68,8 +67,6 @@ function Pedido() {
 			
 		}
 
-
-
 	};
 
   return (
@@ -77,8 +74,6 @@ function Pedido() {
 		<div>
 		<Header/>
 
-
-	
 		<div className='div-form'>
 			<FormSuperior getPedidos={getPedidos}/>
 		<div className='teste'>

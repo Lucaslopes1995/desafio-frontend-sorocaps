@@ -1,5 +1,4 @@
 import { Menu } from 'antd';
-// import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
 const App = () => {

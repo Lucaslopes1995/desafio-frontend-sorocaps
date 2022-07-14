@@ -1,6 +1,5 @@
 import { CREATEPRODUCT } from "../Actions";
 
-
 const INITIAL_STATE = []
   
 function produto(state = INITIAL_STATE, action) {

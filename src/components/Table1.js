@@ -25,7 +25,6 @@ const changeStatus = async (data) =>{
 			data.dispatch(messageModal('Produto Atualizado com sucesso'))
 			// alert("Produto Atualizado com sucesso")
 		}else{
-			console.log("w");
 			data.dispatch(messageModal("Falha ao atualizar Pedido"))
 		}
 
@@ -33,7 +32,6 @@ const changeStatus = async (data) =>{
 		// setPedidos(rawClientes)
 		
 	} catch (error) {
-		console.log(data);
 		data.dispatch(messageModal("Falha ao atualizar Pedido"))
 	}
 }
@@ -70,7 +68,6 @@ const columns = [
 			{ record.status !=="Aprovadas" ?
 
 		  		<ModalMessages key={record.id} textoBotao="Aprovar" changeStatus = {()=>changeStatus(record)} />
-				//   <button textoBotao="Aprovar" onClick={ () => changeStatus(record)}>Aprovar</button>
 				: <span key={record.id}>Aprovada</span>
         	}
 		{/* <a onClick={ () => changeStatus(record) }>Aprovar</a> */}

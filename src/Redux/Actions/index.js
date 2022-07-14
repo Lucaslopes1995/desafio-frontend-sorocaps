@@ -4,10 +4,6 @@ export const CREATECLIENTE = "CREATECLIENTE";
 export const CREATEPEDIDO = "CREATEPEDIDO";
 export const MESSAGEMODAL = "MESSAGEMODAL";
 
-
-
-
-
 export const LoggedUser = (payload) => ({ type: USERLOGGED, payload });
 
 export const createProduct = (payload) => ({ type: CREATEPRODUCT, payload });

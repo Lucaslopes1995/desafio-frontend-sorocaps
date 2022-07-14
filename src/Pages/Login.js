@@ -8,7 +8,6 @@ import ModalMessages from '../components/ModalMessages';
 import { LoggedUser, messageModal } from '../Redux/Actions';
 import Header from '../components/Header'
 import URL from '../baseURLs/baseURLS';
-// import Register from './Register'
 
 const Login = ({dispatch}) => {
   const [form] = Form.useForm();

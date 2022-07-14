@@ -14,10 +14,6 @@ const App = ({dispatch, getPedidos}) => {
 	const [clientes, setClientes] = useState([]);
 	const [products, setProducts] = useState([]);
 
-	// const [form] = Form.useForm();
-
-
-
 	useEffect(()=>{
 		getClientes()
 		getProducts()
@@ -35,9 +31,6 @@ const App = ({dispatch, getPedidos}) => {
 		setProducts(rawClientes)
 	};
 
-
-
-
 	const onFinish = async (values) => {
 		try {
 			const token = JSON.parse(localStorage.getItem('tokenUser'))
@@ -54,9 +47,6 @@ const App = ({dispatch, getPedidos}) => {
 				dispatch(messageModal('Pedido Criado'))
 				dispatch(createPedido({...values,status:"EM PROCESSO"}))
 				form.resetFields()
-				// form.setFieldsValue({quantidade:1})
-				// setShowModal(true)
-				// alert("Produto Criado com Sucesso")
 			}else{
 				dispatch(messageModal('Falha ao Criar o Pedido'))
 			}
@@ -76,7 +66,6 @@ const App = ({dispatch, getPedidos}) => {
 		form={form}
 		autoComplete='off'
 		align="center"
-		// form={form}
 		style={{
 			marginTop: 30,
 			}}
@@ -138,9 +127,6 @@ const App = ({dispatch, getPedidos}) => {
 				span: 24,
 
 			  }}
-			//   wrapperCol={{
-			// 	span: 12,
-			//   }}
 		>
 			<Form.Item
 
@@ -158,17 +144,11 @@ const App = ({dispatch, getPedidos}) => {
 			]}
 			style={{
 				display: 'inline-block',
-				// width: 'calc(50% - 8px)',
 			}}
 			>
 			<Input placeholder="Quantidade" />
 			</Form.Item>
 			<Form.Item
-
-			// labelCol={{
-			// 	span: 24,
-
-			// }}
 			wrapperCol={{
 				span: 12,
 				offset: 6
@@ -183,17 +163,11 @@ const App = ({dispatch, getPedidos}) => {
 			]}
 			style={{
 				display: 'inline-block',
-				// width: 'calc(50% - 8px)',
 			}}
 			>
 			<Input placeholder="Valor da Venda" />
 			</Form.Item>
 
-			
-
-
-			
-			{/* wrapperCol={{ offset: 0, span: 1, }} */}
 		</Form.Item>
 
 			<Row justify='center'>

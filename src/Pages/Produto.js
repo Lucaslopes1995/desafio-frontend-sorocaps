@@ -35,8 +35,6 @@ const Produto = ({dispatch}) => {
 
 	const history = useHistory();
 
-	// const [form] = Form.useForm();
-
 	const validateToken = async() =>{
 
 		try {
@@ -79,11 +77,6 @@ const Produto = ({dispatch}) => {
 			}
 		});
 		if(response.status ===201){
-			// console.log(values.produto.nomeProduto);
-			// console.log(form);
-			// form.setFieldsValue({
-			// 	produto: {nomeProduto:"awd"}
-			//   });
 			dispatch(messageModal("Produto Cadastrado com Sucesso"))
 			dispatch(createProduct(values))
 			form.resetFields()
@@ -103,8 +96,6 @@ const Produto = ({dispatch}) => {
 	<div>
 		<Header/>
 
-
-	
 		<div className='div-form'>
 
 		<Form {...layout} name="nest-messages" onFinish={onFinish} 

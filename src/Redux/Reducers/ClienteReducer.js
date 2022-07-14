@@ -1,6 +1,5 @@
 import { CREATECLIENTE } from "../Actions";
 
-
 const INITIAL_STATE = []
   
 function cliente(state = INITIAL_STATE, action) {

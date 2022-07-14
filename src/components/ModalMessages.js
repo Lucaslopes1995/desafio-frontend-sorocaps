@@ -9,7 +9,6 @@ const App = ({infoModal, textoBotao, onClick, dispatch, changeStatus}) => {
   const showModal = async () => {
 	if( textoBotao === "Aprovar"){
 		changeStatus()
-		// dispatch(messageModal('Pedido Atualizado com sucesso'))
 	}
 	  	
 	setIsModalVisible(true);
@@ -20,7 +19,7 @@ const App = ({infoModal, textoBotao, onClick, dispatch, changeStatus}) => {
 	if(onClick){
 		await onClick()
 	}
-	// dispatch(messageModal(''))
+	dispatch(messageModal(''))
   };
 
   const handleCancel = async () => {
@@ -28,7 +27,7 @@ const App = ({infoModal, textoBotao, onClick, dispatch, changeStatus}) => {
 	if(onClick){
 		await onClick()
 	}
-	// dispatch(messageModal(''))
+	dispatch(messageModal(''))
   };
 
   return (

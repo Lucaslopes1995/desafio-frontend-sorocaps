@@ -1,6 +1,5 @@
 import { CREATEPEDIDO } from "../Actions";
 
-
 const INITIAL_STATE = []
   
 function pedido(state = INITIAL_STATE, action) {
