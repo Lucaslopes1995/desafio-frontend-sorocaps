@@ -65,10 +65,10 @@ const columns = [
     key: 'status',
     render: (_, record) => (
 		<Space size="middle">
-			{ record.status !=="Aprovadas" ?
+			{ record.status ==="Em Processo" ?
 
 		  		<ModalMessages key={record.id} textoBotao="Aprovar" changeStatus = {()=>changeStatus(record)} />
-				: <span key={record.id}>Aprovada</span>
+				: <span key={record.id}>Aprovado</span>
         	}
 		{/* <a onClick={ () => changeStatus(record) }>Aprovar</a> */}
       </Space>

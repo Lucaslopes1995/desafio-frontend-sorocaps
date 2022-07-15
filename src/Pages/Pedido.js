@@ -76,13 +76,13 @@ function Pedido() {
 
 		<div className='div-form'>
 			<FormSuperior getPedidos={getPedidos}/>
-		<div className='teste'>
-			<Table1 pedidos= {pedidosAndamento} getPedidos={getPedidos} status={"Andamento"}/>
+		<div className='tabelas-pedidos'>
+			<Table1 pedidos= {pedidosAndamento} getPedidos={getPedidos} status={"Em Processo"}/>
 			
 		</div>
 
-		<div className='tables-pedidos'>
-			<Table1 pedidos= {pedidosAprovados} status={"Aprovadas"}/>
+		<div className='tabelas-pedidos'>
+			<Table1 pedidos= {pedidosAprovados} status={"Aprovados"}/>
 			
 		</div>
 
