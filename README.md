@@ -11,7 +11,7 @@
 
 - `git clone git@github.com:Lucaslopes1995/desafio-frontend-sorocaps.git`
 - Entre na pasta do repositório que você acabou de clonar:
-  - `cd Front`
+  - `cd desafio-frontend-sorocaps`
 
 2. Instale as dependências do front
 
