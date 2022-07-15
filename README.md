@@ -9,7 +9,7 @@
 
 1. Clone o repositório
 
-- `git clone git@github.com:Lucaslopes1995/desafio-backend-sorocaps.git`
+- `git clone git@github.com:Lucaslopes1995/desafio-frontend-sorocaps.git`
 - Entre na pasta do repositório que você acabou de clonar:
   - `cd Front`
 
